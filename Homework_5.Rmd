@@ -1,0 +1,46 @@
+---
+title: "Homework_5"
+author: "Caitlyn Bruntz"
+date: "2023-03-01"
+output: html_document
+---
+
+# Names of all team members: Angelina Allen and Caitlyn Bruntz
+# Link to github repository: https://github.com/cmbruntz/Homework-5.git
+# Paragraph commenting on workflow: 
+
+```{r}
+library(ggplot2)
+df = read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(df)
+colnames(df)
+str(df)
+```
+
+
+
+
+
+
+
+
+# How are ratings distributed
+```{r}
+histogram
+```
+
+
+# Do ratings depend on the cocoa percentage of a chocolate bar?
+```{r}
+scatterplot
+```
+
+
+#How do ratings comopare across different company locations?
+```{r}
+locations = dplyr::filter(df, Company.Location %in% c("U.S.A.", "France", "Canada"))
+barchart
+```
+
+
+
