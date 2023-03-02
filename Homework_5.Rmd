@@ -32,7 +32,7 @@ ggplot(choco, aes(x = Review.Date)) + geom_bar()
 
 
 # How are ratings distributed?
-
+ # The ratings are distributed in a fairly normal distribution. However, there are outliers in both directions.
 ```{r}
 
 choco$rating.numeric = as.numeric(choco$Rating)
@@ -66,10 +66,20 @@ box = ggplot(choco1, aes(x = CL.factor, y = Rating)) +
 box
 ```
 
-#Question 3: What company has the highest ratings? #still needs work
+#Question 3: What company has the highest ratings?
+#Top 3 companies are in side-by-side boxplots
+ # Tobago Estate consistently had a four rating. Ocelot and Heirloom Cacao Preservation both had a mean rating of 3.875 and a range of 3.75-4.
 
 ```{r}
-question_3 = ggplot(df, aes(x = Company)) + geom_bar(aes(weight = rating.numeric))
-question_3
+choco$c.factor = as.factor(choco$Company)
+str(choco)
+levels(reorder(choco$c.factor, choco$Rating, na.rm = TRUE))
+
+choco2 = dplyr::filter(choco, c.factor %in% c("Heirloom Cacao Preservation (Zokoko)", "Ocelot", "Tobago Estate (Pralus)"))
+choco2
+
+box = ggplot(choco2, aes(x = c.factor, y = Rating)) +
+  geom_boxplot() + facet_wrap(~c.factor)
+box
 ```
 
