@@ -83,3 +83,14 @@ box = ggplot(choco2, aes(x = c.factor, y = Rating)) +
 box
 ```
 
+#What location has the most number of the best chocolate based off of specific cocoa percentage and rating.  
+```{r}
+choco1 <- choco %>% select(Rating, Cocoa.Pct, Company.Location)
+head(choco1)
+
+best.choco <- choco1 %>% filter(Cocoa.Pct >= '75%', Rating >= 3.5)
+View(best.choco)
+
+ggplot(best.choco, aes(x = Company.Location)) + geom_bar()+ coord_flip()
+```
+
