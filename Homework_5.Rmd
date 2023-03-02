@@ -16,12 +16,18 @@ head(df)
 colnames(df)
 str(df)
 ```
+# What is the overall number of chocolate bars rated?
 
+```{r}
+nrow(choco)
+```
+*I just looked up how many rows are in this data frame to see how many bars were in here that are rated. So, the answer is 1,852 bars are rated.*
 
+# How does the number of ratings depend on the year? Draw a bar chart of the number of reports.
 
-
-
-
+```{r, warning=FALSE}
+ggplot(choco, aes(x = Review.Date)) + geom_bar()
+```
 
 
 # How are ratings distributed
