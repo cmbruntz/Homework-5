@@ -16,6 +16,7 @@ head(choco)
 colnames(choco)
 str(choco)
 ```
+
 # What is the overall number of chocolate bars rated?
 
 ```{r}
@@ -30,42 +31,43 @@ ggplot(choco, aes(x = Review.Date)) + geom_bar()
 ```
 
 
-# How are ratings distributed? #Character type needs adjusted
+# How are ratings distributed?
+
 ```{r}
 
 choco$rating.numeric = as.numeric(choco$Rating)
 levels(choco$rating.numeric)
 
 distribution = ggplot(choco, aes(x = rating.numeric)) + 
-  geom_histogram(binwidth=5000) +
+  geom_histogram() +
   ggtitle("Rating Distribution")
 distribution
 ```
 
 
 # Do ratings depend on the cocoa percentage of a chocolate bar?
+
 ```{r}
-scatter = ggplot(df, aes(x = Cocoa.Pct, y = Rating))+ geom_point()
+scatter = ggplot(choco, aes(x = Cocoa.Pct, y = Rating))+ geom_point()
 scatter
 ```
 
 
-#How do ratings compare across different company locations? #Error about aesthestics
+#How do ratings compare across different company locations?
+
 ```{r}
-df$CL.factor = as.factor(df$Company.Location)
-str(df)
+choco$CL.factor = as.factor(choco$Company.Location)
+str(choco)
 
-locations = dplyr::filter(df, CL.factor %in% c("U.S.A.", "France", "Canada"))
-locations
+choco1 = dplyr::filter(choco, CL.factor %in% c("U.S.A.", "France", "Canada"))
 
-
-
-box = ggplot(df, aes(x = locations, y = Rating)) +
+box = ggplot(choco1, aes(x = CL.factor, y = Rating)) +
   geom_boxplot() + facet_wrap(~CL.factor)
 box
 ```
 
-#Question 3: What company has the highest ratings?
+#Question 3: What company has the highest ratings? #still needs work
+
 ```{r}
 question_3 = ggplot(df, aes(x = Company)) + geom_bar(aes(weight = rating.numeric))
 question_3
