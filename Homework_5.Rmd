@@ -11,10 +11,10 @@ output: html_document
 
 ```{r}
 library(ggplot2)
-df = read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
-head(df)
-colnames(df)
-str(df)
+choco = read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+colnames(choco)
+str(choco)
 ```
 
 
@@ -24,23 +24,44 @@ str(df)
 
 
 
-# How are ratings distributed
+# How are ratings distributed? #Character type needs adjusted
 ```{r}
-histogram
+
+choco$rating.numeric = as.numeric(choco$Rating)
+levels(choco$rating.numeric)
+
+distribution = ggplot(choco, aes(x = rating.numeric)) + 
+  geom_histogram(binwidth=5000) +
+  ggtitle("Rating Distribution")
+distribution
 ```
 
 
 # Do ratings depend on the cocoa percentage of a chocolate bar?
 ```{r}
-scatterplot
+scatter = ggplot(df, aes(x = Cocoa.Pct, y = Rating))+ geom_point()
+scatter
 ```
 
 
-#How do ratings comopare across different company locations?
+#How do ratings compare across different company locations? #Error about aesthestics
 ```{r}
-locations = dplyr::filter(df, Company.Location %in% c("U.S.A.", "France", "Canada"))
-barchart
+df$CL.factor = as.factor(df$Company.Location)
+str(df)
+
+locations = dplyr::filter(df, CL.factor %in% c("U.S.A.", "France", "Canada"))
+locations
+
+
+
+box = ggplot(df, aes(x = locations, y = Rating)) +
+  geom_boxplot() + facet_wrap(~CL.factor)
+box
 ```
 
-
+#Question 3: What company has the highest ratings?
+```{r}
+question_3 = ggplot(df, aes(x = Company)) + geom_bar(aes(weight = rating.numeric))
+question_3
+```
 
